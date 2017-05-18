@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ToiecTestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Category">
+          <Property Name="id" Type="int" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="parentid" Type="int" />
+        </EntityType>-->
+        <EntityType Name="PhanQuyen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="TenQuyen" Type="nvarchar(max)" />
+          <Property Name="LoaiQuyen" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tb_Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="mobile" Type="varchar" MaxLength="11" />
+          <Property Name="livingPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="birthDay" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="idQuyen" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_SubQuestion" Type="int" Nullable="false" />
+          <Property Name="answerContent" Type="ntext" Nullable="false" />
+          <Property Name="isCorrect" Type="bit" Nullable="false" />
+          <Property Name="Ordering" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="ntext" />
+          <Property Name="alt" Type="ntext" />
+          <Property Name="id_SubQuestion" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="levelName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ordering" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="partNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Skill" Type="int" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Ordering" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_QuangCao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_ViTri" Type="int" />
+          <Property Name="linkHinhAnh" Type="nvarchar" MaxLength="150" />
+          <Property Name="linkWeb" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_Question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Topic" Type="int" />
+          <Property Name="id_Level" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="contentQuestion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="id_Part" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Quiz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="quizName" Type="varchar" MaxLength="50" />
+          <Property Name="id_Skill" Type="int" />
+          <Property Name="totalQuestion" Type="int" />
+          <Property Name="totalTime" Type="int" />
+          <Property Name="id_Member" Type="int" />
+          <Property Name="createdTime" Type="datetime" />
+          <Property Name="finishTime" Type="datetime" />
+          <Property Name="scoreRead" Type="int" />
+          <Property Name="scoreListening" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_QuizDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Quiz" Type="int" />
+          <Property Name="id_SubQuestion" Type="int" />
+          <Property Name="_order" Type="int" />
+          <Property Name="id_AnswerMember" Type="int" />
+          <Property Name="isCorrect" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="skillName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ordering" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Sound">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_SubQuestion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Question" Type="int" Nullable="false" />
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="Desciption" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_Topic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="topicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Ordering" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ViTriQC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="viTri" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_tb_Account_PhanQuyen">
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="0..1" />
+          <End Role="tb_Account" Type="Self.tb_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhanQuyen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Account">
+              <PropertyRef Name="idQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Answer_tb_SubQuestion">
+          <End Role="tb_SubQuestion" Type="Self.tb_SubQuestion" Multiplicity="1" />
+          <End Role="tb_Answer" Type="Self.tb_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_SubQuestion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Answer">
+              <PropertyRef Name="id_SubQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Part_tb_Skill1">
+          <End Role="tb_Skill" Type="Self.tb_Skill" Multiplicity="0..1" />
+          <End Role="tb_Part" Type="Self.tb_Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Part">
+              <PropertyRef Name="id_Skill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuangCao_tb_ViTriQC">
+          <End Role="tb_ViTriQC" Type="Self.tb_ViTriQC" Multiplicity="0..1" />
+          <End Role="tb_QuangCao" Type="Self.tb_QuangCao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ViTriQC">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuangCao">
+              <PropertyRef Name="id_ViTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_Level">
+          <End Role="tb_Level" Type="Self.tb_Level" Multiplicity="0..1" />
+          <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Level">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_tb_Part">
+          <End Role="tb_Part" Type="Self.tb_Part" Multiplicity="0..1" />
+          <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Part">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_tb_Topic">
+          <End Role="tb_Topic" Type="Self.tb_Topic" Multiplicity="0..1" />
+          <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Topic">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Topic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Quiz_tb_Member">
+          <End Role="tb_Account" Type="Self.tb_Account" Multiplicity="0..1" />
+          <End Role="tb_Quiz" Type="Self.tb_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Quiz">
+              <PropertyRef Name="id_Member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuizDetail_tb_Quiz">
+          <End Role="tb_Quiz" Type="Self.tb_Quiz" Multiplicity="0..1" />
+          <End Role="tb_QuizDetail" Type="Self.tb_QuizDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Quiz">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuizDetail">
+              <PropertyRef Name="id_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuizDetail_tb_SubQuestion">
+          <End Role="tb_SubQuestion" Type="Self.tb_SubQuestion" Multiplicity="0..1" />
+          <End Role="tb_QuizDetail" Type="Self.tb_QuizDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_SubQuestion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuizDetail">
+              <PropertyRef Name="id_SubQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_SubQuestion_tb_Question">
+          <End Role="tb_Question" Type="Self.tb_Question" Multiplicity="1" />
+          <End Role="tb_SubQuestion" Type="Self.tb_SubQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_SubQuestion">
+              <PropertyRef Name="id_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ToiecTestModelStoreContainer">
+          <EntitySet Name="PhanQuyen" EntityType="Self.PhanQuyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Account" EntityType="Self.tb_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Answer" EntityType="Self.tb_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Image" EntityType="Self.tb_Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Level" EntityType="Self.tb_Level" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Part" EntityType="Self.tb_Part" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_QuangCao" EntityType="Self.tb_QuangCao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Question" EntityType="Self.tb_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Quiz" EntityType="Self.tb_Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_QuizDetail" EntityType="Self.tb_QuizDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Skill" EntityType="Self.tb_Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Sound" EntityType="Self.tb_Sound" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_SubQuestion" EntityType="Self.tb_SubQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Topic" EntityType="Self.tb_Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ViTriQC" EntityType="Self.tb_ViTriQC" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_Account_PhanQuyen" Association="Self.FK_tb_Account_PhanQuyen">
+            <End Role="PhanQuyen" EntitySet="PhanQuyen" />
+            <End Role="tb_Account" EntitySet="tb_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Answer_tb_SubQuestion" Association="Self.FK_tb_Answer_tb_SubQuestion">
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+            <End Role="tb_Answer" EntitySet="tb_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Part_tb_Skill1" Association="Self.FK_tb_Part_tb_Skill1">
+            <End Role="tb_Skill" EntitySet="tb_Skill" />
+            <End Role="tb_Part" EntitySet="tb_Part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuangCao_tb_ViTriQC" Association="Self.FK_tb_QuangCao_tb_ViTriQC">
+            <End Role="tb_ViTriQC" EntitySet="tb_ViTriQC" />
+            <End Role="tb_QuangCao" EntitySet="tb_QuangCao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_Level" Association="Self.FK_tb_Question_Level">
+            <End Role="tb_Level" EntitySet="tb_Level" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_tb_Part" Association="Self.FK_tb_Question_tb_Part">
+            <End Role="tb_Part" EntitySet="tb_Part" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_tb_Topic" Association="Self.FK_tb_Question_tb_Topic">
+            <End Role="tb_Topic" EntitySet="tb_Topic" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Quiz_tb_Member" Association="Self.FK_tb_Quiz_tb_Member">
+            <End Role="tb_Account" EntitySet="tb_Account" />
+            <End Role="tb_Quiz" EntitySet="tb_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuizDetail_tb_Quiz" Association="Self.FK_tb_QuizDetail_tb_Quiz">
+            <End Role="tb_Quiz" EntitySet="tb_Quiz" />
+            <End Role="tb_QuizDetail" EntitySet="tb_QuizDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuizDetail_tb_SubQuestion" Association="Self.FK_tb_QuizDetail_tb_SubQuestion">
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+            <End Role="tb_QuizDetail" EntitySet="tb_QuizDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_SubQuestion_tb_Question" Association="Self.FK_tb_SubQuestion_tb_Question">
+            <End Role="tb_Question" EntitySet="tb_Question" />
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ToiecTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ToiecTestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PhanQuyens" EntityType="ToiecTestModel.PhanQuyen" />
+          <EntitySet Name="sysdiagrams" EntityType="ToiecTestModel.sysdiagram" />
+          <EntitySet Name="tb_Account" EntityType="ToiecTestModel.tb_Account" />
+          <EntitySet Name="tb_Answer" EntityType="ToiecTestModel.tb_Answer" />
+          <EntitySet Name="tb_Image" EntityType="ToiecTestModel.tb_Image" />
+          <EntitySet Name="tb_Level" EntityType="ToiecTestModel.tb_Level" />
+          <EntitySet Name="tb_Part" EntityType="ToiecTestModel.tb_Part" />
+          <EntitySet Name="tb_QuangCao" EntityType="ToiecTestModel.tb_QuangCao" />
+          <EntitySet Name="tb_Question" EntityType="ToiecTestModel.tb_Question" />
+          <EntitySet Name="tb_Quiz" EntityType="ToiecTestModel.tb_Quiz" />
+          <EntitySet Name="tb_QuizDetail" EntityType="ToiecTestModel.tb_QuizDetail" />
+          <EntitySet Name="tb_Skill" EntityType="ToiecTestModel.tb_Skill" />
+          <EntitySet Name="tb_Sound" EntityType="ToiecTestModel.tb_Sound" />
+          <EntitySet Name="tb_SubQuestion" EntityType="ToiecTestModel.tb_SubQuestion" />
+          <EntitySet Name="tb_Topic" EntityType="ToiecTestModel.tb_Topic" />
+          <EntitySet Name="tb_ViTriQC" EntityType="ToiecTestModel.tb_ViTriQC" />
+          <AssociationSet Name="FK_tb_Account_PhanQuyen" Association="ToiecTestModel.FK_tb_Account_PhanQuyen">
+            <End Role="PhanQuyen" EntitySet="PhanQuyens" />
+            <End Role="tb_Account" EntitySet="tb_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Quiz_tb_Member" Association="ToiecTestModel.FK_tb_Quiz_tb_Member">
+            <End Role="tb_Account" EntitySet="tb_Account" />
+            <End Role="tb_Quiz" EntitySet="tb_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Answer_tb_SubQuestion" Association="ToiecTestModel.FK_tb_Answer_tb_SubQuestion">
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+            <End Role="tb_Answer" EntitySet="tb_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_Level" Association="ToiecTestModel.FK_tb_Question_Level">
+            <End Role="tb_Level" EntitySet="tb_Level" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Part_tb_Skill1" Association="ToiecTestModel.FK_tb_Part_tb_Skill1">
+            <End Role="tb_Skill" EntitySet="tb_Skill" />
+            <End Role="tb_Part" EntitySet="tb_Part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_tb_Part" Association="ToiecTestModel.FK_tb_Question_tb_Part">
+            <End Role="tb_Part" EntitySet="tb_Part" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuangCao_tb_ViTriQC" Association="ToiecTestModel.FK_tb_QuangCao_tb_ViTriQC">
+            <End Role="tb_ViTriQC" EntitySet="tb_ViTriQC" />
+            <End Role="tb_QuangCao" EntitySet="tb_QuangCao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_Question_tb_Topic" Association="ToiecTestModel.FK_tb_Question_tb_Topic">
+            <End Role="tb_Topic" EntitySet="tb_Topic" />
+            <End Role="tb_Question" EntitySet="tb_Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_SubQuestion_tb_Question" Association="ToiecTestModel.FK_tb_SubQuestion_tb_Question">
+            <End Role="tb_Question" EntitySet="tb_Question" />
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuizDetail_tb_Quiz" Association="ToiecTestModel.FK_tb_QuizDetail_tb_Quiz">
+            <End Role="tb_Quiz" EntitySet="tb_Quiz" />
+            <End Role="tb_QuizDetail" EntitySet="tb_QuizDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_QuizDetail_tb_SubQuestion" Association="ToiecTestModel.FK_tb_QuizDetail_tb_SubQuestion">
+            <End Role="tb_SubQuestion" EntitySet="tb_SubQuestion" />
+            <End Role="tb_QuizDetail" EntitySet="tb_QuizDetail" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="PhanQuyen">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="TenQuyen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiQuyen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Account" Relationship="ToiecTestModel.FK_tb_Account_PhanQuyen" FromRole="PhanQuyen" ToRole="tb_Account" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tb_Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="livingPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="birthDay" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="idQuyen" Type="Int32" />
+          <NavigationProperty Name="PhanQuyen" Relationship="ToiecTestModel.FK_tb_Account_PhanQuyen" FromRole="tb_Account" ToRole="PhanQuyen" />
+          <NavigationProperty Name="tb_Quiz" Relationship="ToiecTestModel.FK_tb_Quiz_tb_Member" FromRole="tb_Account" ToRole="tb_Quiz" />
+        </EntityType>
+        <EntityType Name="tb_Answer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_SubQuestion" Type="Int32" Nullable="false" />
+          <Property Name="answerContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isCorrect" Type="Boolean" Nullable="false" />
+          <Property Name="Ordering" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tb_SubQuestion" Relationship="ToiecTestModel.FK_tb_Answer_tb_SubQuestion" FromRole="tb_Answer" ToRole="tb_SubQuestion" />
+        </EntityType>
+        <EntityType Name="tb_Image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="alt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_SubQuestion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tb_Level">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="levelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ordering" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_Question" Relationship="ToiecTestModel.FK_tb_Question_Level" FromRole="tb_Level" ToRole="tb_Question" />
+        </EntityType>
+        <EntityType Name="tb_Part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="partNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_Skill" Type="Int32" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Ordering" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tb_Skill" Relationship="ToiecTestModel.FK_tb_Part_tb_Skill1" FromRole="tb_Part" ToRole="tb_Skill" />
+          <NavigationProperty Name="tb_Question" Relationship="ToiecTestModel.FK_tb_Question_tb_Part" FromRole="tb_Part" ToRole="tb_Question" />
+        </EntityType>
+        <EntityType Name="tb_QuangCao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_ViTri" Type="Int32" />
+          <Property Name="linkHinhAnh" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="linkWeb" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_ViTriQC" Relationship="ToiecTestModel.FK_tb_QuangCao_tb_ViTriQC" FromRole="tb_QuangCao" ToRole="tb_ViTriQC" />
+        </EntityType>
+        <EntityType Name="tb_Question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Topic" Type="Int32" />
+          <Property Name="id_Level" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="contentQuestion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="id_Part" Type="Int32" />
+          <NavigationProperty Name="tb_Level" Relationship="ToiecTestModel.FK_tb_Question_Level" FromRole="tb_Question" ToRole="tb_Level" />
+          <NavigationProperty Name="tb_Part" Relationship="ToiecTestModel.FK_tb_Question_tb_Part" FromRole="tb_Question" ToRole="tb_Part" />
+          <NavigationProperty Name="tb_Topic" Relationship="ToiecTestModel.FK_tb_Question_tb_Topic" FromRole="tb_Question" ToRole="tb_Topic" />
+          <NavigationProperty Name="tb_SubQuestion" Relationship="ToiecTestModel.FK_tb_SubQuestion_tb_Question" FromRole="tb_Question" ToRole="tb_SubQuestion" />
+        </EntityType>
+        <EntityType Name="tb_Quiz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="quizName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_Skill" Type="Int32" />
+          <Property Name="totalQuestion" Type="Int32" />
+          <Property Name="totalTime" Type="Int32" />
+          <Property Name="id_Member" Type="Int32" />
+          <Property Name="createdTime" Type="DateTime" Precision="3" />
+          <Property Name="finishTime" Type="DateTime" Precision="3" />
+          <Property Name="scoreRead" Type="Int32" />
+          <Property Name="scoreListening" Type="Int32" />
+          <NavigationProperty Name="tb_Account" Relationship="ToiecTestModel.FK_tb_Quiz_tb_Member" FromRole="tb_Quiz" ToRole="tb_Account" />
+          <NavigationProperty Name="tb_QuizDetail" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_Quiz" FromRole="tb_Quiz" ToRole="tb_QuizDetail" />
+        </EntityType>
+        <EntityType Name="tb_QuizDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Quiz" Type="Int32" />
+          <Property Name="id_SubQuestion" Type="Int32" />
+          <Property Name="C_order" Type="Int32" />
+          <Property Name="id_AnswerMember" Type="Int32" />
+          <Property Name="isCorrect" Type="Boolean" />
+          <NavigationProperty Name="tb_Quiz" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_Quiz" FromRole="tb_QuizDetail" ToRole="tb_Quiz" />
+          <NavigationProperty Name="tb_SubQuestion" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_SubQuestion" FromRole="tb_QuizDetail" ToRole="tb_SubQuestion" />
+        </EntityType>
+        <EntityType Name="tb_Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="skillName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ordering" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_Part" Relationship="ToiecTestModel.FK_tb_Part_tb_Skill1" FromRole="tb_Skill" ToRole="tb_Part" />
+        </EntityType>
+        <EntityType Name="tb_Sound">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_SubQuestion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Question" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="Desciption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_Answer" Relationship="ToiecTestModel.FK_tb_Answer_tb_SubQuestion" FromRole="tb_SubQuestion" ToRole="tb_Answer" />
+          <NavigationProperty Name="tb_Question" Relationship="ToiecTestModel.FK_tb_SubQuestion_tb_Question" FromRole="tb_SubQuestion" ToRole="tb_Question" />
+          <NavigationProperty Name="tb_QuizDetail" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_SubQuestion" FromRole="tb_SubQuestion" ToRole="tb_QuizDetail" />
+        </EntityType>
+        <EntityType Name="tb_Topic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="topicName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Ordering" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tb_Question" Relationship="ToiecTestModel.FK_tb_Question_tb_Topic" FromRole="tb_Topic" ToRole="tb_Question" />
+        </EntityType>
+        <EntityType Name="tb_ViTriQC">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="viTri" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_QuangCao" Relationship="ToiecTestModel.FK_tb_QuangCao_tb_ViTriQC" FromRole="tb_ViTriQC" ToRole="tb_QuangCao" />
+        </EntityType>
+        <Association Name="FK_tb_Account_PhanQuyen">
+          <End Type="ToiecTestModel.PhanQuyen" Role="PhanQuyen" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Account" Role="tb_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhanQuyen">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Account">
+              <PropertyRef Name="idQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Quiz_tb_Member">
+          <End Type="ToiecTestModel.tb_Account" Role="tb_Account" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Quiz" Role="tb_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Account">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Quiz">
+              <PropertyRef Name="id_Member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Answer_tb_SubQuestion">
+          <End Type="ToiecTestModel.tb_SubQuestion" Role="tb_SubQuestion" Multiplicity="1" />
+          <End Type="ToiecTestModel.tb_Answer" Role="tb_Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_SubQuestion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Answer">
+              <PropertyRef Name="id_SubQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_Level">
+          <End Type="ToiecTestModel.tb_Level" Role="tb_Level" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Question" Role="tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Level">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Part_tb_Skill1">
+          <End Type="ToiecTestModel.tb_Skill" Role="tb_Skill" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Part" Role="tb_Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Skill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Part">
+              <PropertyRef Name="id_Skill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_tb_Part">
+          <End Type="ToiecTestModel.tb_Part" Role="tb_Part" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Question" Role="tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Part">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Part" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuangCao_tb_ViTriQC">
+          <End Type="ToiecTestModel.tb_ViTriQC" Role="tb_ViTriQC" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_QuangCao" Role="tb_QuangCao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ViTriQC">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuangCao">
+              <PropertyRef Name="id_ViTri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_Question_tb_Topic">
+          <End Type="ToiecTestModel.tb_Topic" Role="tb_Topic" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_Question" Role="tb_Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Topic">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_Question">
+              <PropertyRef Name="id_Topic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_SubQuestion_tb_Question">
+          <End Type="ToiecTestModel.tb_Question" Role="tb_Question" Multiplicity="1" />
+          <End Type="ToiecTestModel.tb_SubQuestion" Role="tb_SubQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Question">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_SubQuestion">
+              <PropertyRef Name="id_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuizDetail_tb_Quiz">
+          <End Type="ToiecTestModel.tb_Quiz" Role="tb_Quiz" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_QuizDetail" Role="tb_QuizDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Quiz">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuizDetail">
+              <PropertyRef Name="id_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_QuizDetail_tb_SubQuestion">
+          <End Type="ToiecTestModel.tb_SubQuestion" Role="tb_SubQuestion" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.tb_QuizDetail" Role="tb_QuizDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_SubQuestion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_QuizDetail">
+              <PropertyRef Name="id_SubQuestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ToiecTestModelStoreContainer" CdmEntityContainer="ToiecTestEntities">
+          <EntitySetMapping Name="PhanQuyens">
+            <EntityTypeMapping TypeName="ToiecTestModel.PhanQuyen">
+              <MappingFragment StoreEntitySet="PhanQuyen">
+                <ScalarProperty Name="LoaiQuyen" ColumnName="LoaiQuyen" />
+                <ScalarProperty Name="TenQuyen" ColumnName="TenQuyen" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ToiecTestModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Account">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Account">
+              <MappingFragment StoreEntitySet="tb_Account">
+                <ScalarProperty Name="idQuyen" ColumnName="idQuyen" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="birthDay" ColumnName="birthDay" />
+                <ScalarProperty Name="livingPlace" ColumnName="livingPlace" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Answer">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Answer">
+              <MappingFragment StoreEntitySet="tb_Answer">
+                <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+                <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
+                <ScalarProperty Name="answerContent" ColumnName="answerContent" />
+                <ScalarProperty Name="id_SubQuestion" ColumnName="id_SubQuestion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Image">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Image">
+              <MappingFragment StoreEntitySet="tb_Image">
+                <ScalarProperty Name="id_SubQuestion" ColumnName="id_SubQuestion" />
+                <ScalarProperty Name="alt" ColumnName="alt" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Level">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Level">
+              <MappingFragment StoreEntitySet="tb_Level">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+                <ScalarProperty Name="levelName" ColumnName="levelName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Part">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Part">
+              <MappingFragment StoreEntitySet="tb_Part">
+                <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="id_Skill" ColumnName="id_Skill" />
+                <ScalarProperty Name="partNumber" ColumnName="partNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_QuangCao">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_QuangCao">
+              <MappingFragment StoreEntitySet="tb_QuangCao">
+                <ScalarProperty Name="linkWeb" ColumnName="linkWeb" />
+                <ScalarProperty Name="linkHinhAnh" ColumnName="linkHinhAnh" />
+                <ScalarProperty Name="id_ViTri" ColumnName="id_ViTri" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Question">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Question">
+              <MappingFragment StoreEntitySet="tb_Question">
+                <ScalarProperty Name="id_Part" ColumnName="id_Part" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="contentQuestion" ColumnName="contentQuestion" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="id_Level" ColumnName="id_Level" />
+                <ScalarProperty Name="id_Topic" ColumnName="id_Topic" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Quiz">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Quiz">
+              <MappingFragment StoreEntitySet="tb_Quiz">
+                <ScalarProperty Name="scoreListening" ColumnName="scoreListening" />
+                <ScalarProperty Name="scoreRead" ColumnName="scoreRead" />
+                <ScalarProperty Name="finishTime" ColumnName="finishTime" />
+                <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+                <ScalarProperty Name="id_Member" ColumnName="id_Member" />
+                <ScalarProperty Name="totalTime" ColumnName="totalTime" />
+                <ScalarProperty Name="totalQuestion" ColumnName="totalQuestion" />
+                <ScalarProperty Name="id_Skill" ColumnName="id_Skill" />
+                <ScalarProperty Name="quizName" ColumnName="quizName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_QuizDetail">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_QuizDetail">
+              <MappingFragment StoreEntitySet="tb_QuizDetail">
+                <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
+                <ScalarProperty Name="id_AnswerMember" ColumnName="id_AnswerMember" />
+                <ScalarProperty Name="C_order" ColumnName="_order" />
+                <ScalarProperty Name="id_SubQuestion" ColumnName="id_SubQuestion" />
+                <ScalarProperty Name="id_Quiz" ColumnName="id_Quiz" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Skill">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Skill">
+              <MappingFragment StoreEntitySet="tb_Skill">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+                <ScalarProperty Name="skillName" ColumnName="skillName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Sound">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Sound">
+              <MappingFragment StoreEntitySet="tb_Sound">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_SubQuestion">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_SubQuestion">
+              <MappingFragment StoreEntitySet="tb_SubQuestion">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="id_Question" ColumnName="id_Question" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Topic">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_Topic">
+              <MappingFragment StoreEntitySet="tb_Topic">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Ordering" ColumnName="Ordering" />
+                <ScalarProperty Name="topicName" ColumnName="topicName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ViTriQC">
+            <EntityTypeMapping TypeName="ToiecTestModel.tb_ViTriQC">
+              <MappingFragment StoreEntitySet="tb_ViTriQC">
+                <ScalarProperty Name="viTri" ColumnName="viTri" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

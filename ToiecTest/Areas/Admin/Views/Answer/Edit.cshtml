@@ -1,0 +1,92 @@
+﻿@using Model
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstSubQuestion = (List<tb_SubQuestion>)TempData["lstSubQuestion"];
+}
+@model Model.tb_Answer
+
+@using (Html.BeginForm("Edit", "Answer", FormMethod.Post, new { @id = "basicForm" }))
+{
+    @Html.AntiForgeryToken() @*tránh ko cho spam liên tục*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4>Cập nhật câu trả lời</h4></div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.HiddenFor(g => g.id)
+                            <label class="control-label col-md-2">Câu hỏi con<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.id_SubQuestion, new SelectList(lstSubQuestion, "id", "Desciption", @Request["id_SubQuestion"]), "-----Câu hỏi con-----", new { @class = "form-control select2", id = "id_SubQuestion" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Nội dung câu trả lời<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.answerContent, new { @class = "form-control", id = "txtDescription" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Thứ tự<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Ordering, new { @class = "form-control", @placeholder = "Thứ tự..." })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2"></label>
+                            <div class="col-md-10 pull-right">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="isCorrect" name="isCorrect" value="true" @(Model.isCorrect ? "checked":"") />
+                                    <label for="isCorrect">IsCorrect</label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                rules: {
+                    id_SubQuestion: {
+                        required: true
+                    },
+                    Ordering: {
+                        required: true,
+                        number:true
+                    },
+                },
+                messages: {
+                    id_SubQuestion: {
+                        required: "Chưa chọn tiêu đề cha"
+                    },
+                    Ordering: {
+                        required: "Không được để trống trường này",
+                        number:"Ký tự phải là số"
+                    },
+                }
+            });
+            var editor = CKEDITOR.replace('txtDescription', {
+                customConfig: '/Content/Admin/assets/ckeditor/config.js',
+            });
+           // CKEDITOR.instances['txtDescription'].setData("hdfsdjfk");
+            $("#id_SubQuestion").select2();
+        });
+    </script>
+}
+
+
+
+

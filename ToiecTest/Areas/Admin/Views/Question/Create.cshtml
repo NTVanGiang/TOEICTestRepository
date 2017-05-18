@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Thêm mới câu hỏi cha";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstPart = (List<tb_Part>)TempData["Part"];
+    var lstLevel = (List<tb_Level>)TempData["Level"];
+    var lstTopic = (List<tb_Topic>)TempData["Topic"];
+}
+@using Model
+@model Model.tb_Question
+
+@using (Html.BeginForm("Create","Question",FormMethod.Post, new { @id="basicForm"}))
+{
+    @Html.AntiForgeryToken() @*tránh ko cho spam liên tục*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4>Thêm mới câu hỏi cha</h4></div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tiêu đề</label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(g => g.Title, new { @class="form-control",@placeholder="Tiêu đề câu hỏi"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Nội dung<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.contentQuestion, new { @class = "form-control", @placeholder = "Nhập nội dung câu hỏi", id = "txtDescription" })
+                            </div>
+                        </div>
+                        @* id part *@
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên part<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(x => x.id_Part, new SelectList(lstPart, "id", "partNumber"), "-----Tên part-----", new { @class = "form-control select2", id= "id_Part" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên level<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(x => x.id_Level, new SelectList(lstLevel, "id", "levelName"), "-----Tên level-----", new { @class = "form-control select2", id = "id_Level" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên chủ đề<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(x => x.id_Topic, new SelectList(lstTopic, "id", "topicName"), "-----Tên chủ đề-----", new { @class = "form-control select2", id = "id_Topic" })
+                            </div>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label class="col-md-2"></label>
+                            <div class="col-md-10 pull-right">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="Status" name="Status" value="true" checked="" />
+                                    <label for="Status">Status</label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class="text-danger"})
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                rules: {
+                    Title:{
+                        required:true
+                    },
+                    contentQuestion: {
+                        required:true
+                    },
+                    id_Part: {
+                        required:true
+                    },
+                    id_Level: {
+                        required:true
+                    },
+                    id_Topic: {
+                        required:true
+                    }
+                },
+                messages: {
+                    Title: {
+                        required: "Chưa nhập tiêu đề"
+                    },
+                    contentQuestion: {
+                        required:"Chưa nhập nội dung câu hỏi"
+                    },
+                    id_Part: {
+                        required:"Chưa nhập tên part"
+                    },
+                    id_Level: {
+                        required: "Chưa nhập tên level"
+                    },
+                    id_Topic: {
+                        required: "Chưa nhập tên chủ đề"
+                    }
+                }
+            });
+            $("#id_Part").select2();
+            $("#id_Level").select2();
+            $("#id_Topic").select2();
+            var editor = CKEDITOR.replace('txtDescription', {
+                customConfig: '/Content/Admin/assets/ckeditor/config.js',
+            });
+            
+        });
+    </script>
+}

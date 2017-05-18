@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model Model.tb_Skill
+
+@using (Html.BeginForm("Create", "Skill", FormMethod.Post, new { @id = "basicForm" }))
+{
+    @Html.AntiForgeryToken() @*tránh ko cho spam liên tục*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4>Thêm mới kỹ năng</h4></div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tên kỹ năng<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.skillName, new { @class = "form-control", @placeholder = "Nhập tên kỹ năng" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Thứ tự<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Ordering, new { @class = "form-control", @placeholder = "Thứ tự...", @Value = 0 })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2"></label>
+                            <div class="col-md-10 pull-right">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="Status" name="Status" value="true" checked=""/>
+                                    <label for="Status">Status</label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                rules: {
+                    skillName: {
+                        required: true
+                    },
+                    Ordering: {
+                        required: true,
+                        number:true
+                    }
+                },
+                messages: {
+                    skillName: {
+                        required: "Chưa nhập tên kỹ năng"
+                    },
+                    Ordering: {
+                        required: "Yêu cầu không để trống",
+                        number: "Chỉ nhập chữ số"
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Thêm mới câu hỏi con";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstQuestion = (List<tb_Question>)TempData["Question"];
+}
+@using Model
+@model tb_SubQuestion
+
+@using (Html.BeginForm("Create","SubQuestion",FormMethod.Post, new { @id="basicForm"}))
+{
+    @Html.AntiForgeryToken() @*tránh ko cho spam liên tục*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h4>Thêm mới câu hỏi con</h4></div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        @* id question *@
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tiêu đề question<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(m => m.id_Question, new SelectList(lstQuestion, "id", "Title", @Request["id_Question"]), "-----Tiêu đề câu hỏi cha-----", new { @class = "form-control select2", id = "id_Question" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Nội dung câu hỏi con<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(m => m.Desciption, new { @class = "form-control", @placeholder = "Nhập nội dung câu hỏi con", id = "txtDescription" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Thứ tự<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.position, new { @class = "form-control", @placeholder = "Thứ tự...", @Value = "0" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2"></label>
+                            <div class="col-md-10 pull-right">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="Status" name="Status" value="true" checked="" />
+                                    <label for="Status">Status</label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class="text-danger"})
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                rules: {
+                    Desciption: {
+                        required:true
+                    },
+                    id_Question: {
+                        required:true
+                    },
+                    position: {
+                        required: true,
+                        number:true
+                    },
+                },
+                messages: {
+                    Desciption: {
+                        required:"Chưa nhập nội dung câu hỏi con"
+                    },
+                    id_Question: {
+                        required:"Chưa chọn câu hỏi cha"
+                    },
+                    position: {
+                        required: "Yêu cầu không để trống",
+                        number: "Chỉ nhập chữ số"
+                    },
+                }
+            });
+            $("#id_Question").select2();
+            var editor = CKEDITOR.replace('txtDescription', {
+                customConfig: '/Content/Admin/assets/ckeditor/config.js',
+            });
+            
+        });
+    </script>
+}

@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Danh sách câu hỏi con";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstQuestion = (List<tb_Question>)TempData["Question"];
+    var lstSub = (List<tb_SubQuestion>)TempData["SubQuestion"] ;
+    var Desciption = Request["Desciption"];
+    var id_Question = Request["id_Question"];
+    var stt = 0;
+}
+@using Model;
+@model tb_SubQuestion
+@using PagedList.Mvc;
+
+@using (Html.BeginForm("Index", "SubQuestion"))
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tìm kiếm câu hỏi con</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.id_Question, new SelectList(lstQuestion, "id", "Title", @Request["id_Question"]), "-----Chọn câu hỏi cha-----", new { @class = "form-control select2", id = "id_Question" })
+                        @*<select class="form-control select2" id="id_Question" name="id_Question">
+        <option value="0">------------ Chọn câu hỏi cha ------------</option>
+        @foreach (var item in lstQuestion)
+        {
+            if (!string.IsNullOrEmpty(id_Question))
+            {
+                <option value="@item.id" @(item.id == Convert.ToInt32(id_Question) ? "selected" : "")>@item.Title</option>
+            }
+            else
+            {
+                <option value="@item.id">@item.Title</option>
+            }
+        }
+    </select>*@
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="Desciption" name="Desciption" placeholder="Nội dung câu hỏi con" value="@Desciption">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-purple waves-effect waves-light">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="padding:15px">
+                <h3 class="panel-title" style="font-weight:bold">DANH SÁCH SUB QUESTION</h3>
+                <div style="top:7px; position:absolute;right:40px">
+                    <a href="SubQuestion/Create?id_Question=@id_Question" class="btn btn-success"><i class="fa fa-plus"></i> Thêm mới</a>
+                </div>
+            </div>
+            <div class="panel-body" style="padding:0px; width:100%;float:left">
+                <div class="table-responsive" style="margin-bottom:0px">
+                    <table class="table table-striped table-bordered" style="padding-left:20px; margin-bottom:0px;">
+                        <thead>
+                            <tr>
+                                <th style="width:10px; ">STT
+                                </th>
+                                <th style="text-align:center;width:380px">Nội dung câu hỏi con</th>
+                                <th style="text-align:center;">Thứ tự</th>
+                                <th style="text-align:center;">Trạng thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var itemQ in lstQuestion)
+                            {
+                                <tr>
+                                    <td style="vertical-align: middle; font-weight: bold" align="left" colspan="7">@itemQ.Title.ToUpper()</td>
+                                </tr>
+                                
+                                foreach (var item in lstSub.Where(g=>g.id_Question==itemQ.id))
+                                {
+                                    stt++;
+                                    <tr id="row_@item.id">
+                                        <td style="vertical-align:middle;text-align:center">
+                                            @stt
+                                        </td>
+                                        <td style="vertical-align:middle;text-align:center">@Html.Raw(item.Desciption)</td>
+                                        <td style="vertical-align:middle;text-align:center">@item.position</td>
+                                        <td style="vertical-align:middle;text-align:center">@Html.Raw(item.Status == true ? "<span style='color:green'><i class='fa fa-check' aria-hidden='true'></i></span>" : "<span style='color:red'><i class='fa fa-times' aria-hidden='true'></i></span>")</td>
+                                        <td>
+                                            <div class="pull-right">
+                                                <a href="Answer?id_SubQuestion=@item.id" class="btn btn-warning" title="Thêm answer">
+                                                    <i class="fa fa-plus-square-o"></i>
+                                                </a>
+                                                <a href="SubQuestion/Edit/@item.id" class="btn btn-primary" title="Chỉnh sửa">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </a>
+                                                <a href="SubQuestion/Delete/@item.id" class="btn btn-danger" title="Xóa">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#id_Question").select2();
+        });
+    </script>
+}

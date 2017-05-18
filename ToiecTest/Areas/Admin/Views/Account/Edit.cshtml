@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Model.tb_Account
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()  @*tránh ko cho spam liên tục*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Cập nhật tài khoản</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">FullName<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.fullName, new { @class = "form-control ", @placeholder = "Nhập FullName" })
+                                @Html.ValidationMessageFor(m => m.fullName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">UserName<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.username, new { @class = "form-control ", @placeholder = "Nhập UserName" })
+                                @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Email<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control ", @placeholder = "Email", @type = "email" })
+                                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Số điện thoại<span style="color:red"></span></label>
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.mobile, new { @class = "form-control ", @placeholder = "Số điện thoại" })
+                                @Html.ValidationMessageFor(m => m.mobile, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Ngày sinh<span style="color:red">(*)</span></label>
+                            <div class="col-md-10">
+                                <input type="text" name="birthDay" id="birthDay" class="form-control datepicker-mask" placeholder="Ngày sinh" value="@string.Format("{0:dd/MM/yyyy}", Model.birthDay)"/>
+                                @*@Html.TextBoxFor(m => m.birthDay, new { @class = "form-control datepicker-mask", @placeholder = "Ngày sinh", @id = "birthDay"  })*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10 pull-right">
+                                <div class="checkbox checkbox-primary">
+                                    <input id="Status" name="Status" type="checkbox" value="true" @(Model.Status==true ? "checked" : "") />
+                                    <label for="Status">
+                                        Status
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#basicForm").validate({
+                rules: {
+                    fullName:
+                    {
+                        required: true
+                    },
+                    username: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    },
+                    email: {
+                        email: true
+                    },
+                    mobile: {
+                        number: true
+                    }
+                },
+                messages: {
+                    fullName: {
+                        required: "Chưa nhập tên đầy đủ"
+                    },
+                    username: {
+                        required: "Chưa nhập username"
+                    },
+                    password: {
+                        required: "Chưa nhập password"
+                    },
+                    email: {
+                        email: "Chưa nhập đúng định dạng email"
+                    },
+                    mobile: {
+                        number: "Số điện thoại phải là số"
+                    }
+                }
+            });
+            $.fn.datepicker.defaults.language = 'vi';
+            $(".datepicker-mask").datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+            });
+            $("#birthDay").mask("99/99/9999", { placeholder: "mm/dd/yyyy" });
+
+        });
+    </script>
+}
+
