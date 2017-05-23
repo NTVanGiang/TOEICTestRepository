@@ -2,7 +2,7 @@
     ViewBag.Title = "Danh sách câu hỏi con";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     var lstQuestion = (List<tb_Question>)TempData["Question"];
-    var lstSub = (List<tb_SubQuestion>)TempData["SubQuestion"] ;
+    var lstSub = (List<tb_SubQuestion>)TempData["SubQuestion"];
     var Desciption = Request["Desciption"];
     var id_Question = Request["id_Question"];
     var stt = 0;
@@ -21,19 +21,19 @@
                     <div class="form-group">
                         @Html.DropDownListFor(m => m.id_Question, new SelectList(lstQuestion, "id", "Title", @Request["id_Question"]), "-----Chọn câu hỏi cha-----", new { @class = "form-control select2", id = "id_Question" })
                         @*<select class="form-control select2" id="id_Question" name="id_Question">
-        <option value="0">------------ Chọn câu hỏi cha ------------</option>
-        @foreach (var item in lstQuestion)
-        {
-            if (!string.IsNullOrEmpty(id_Question))
-            {
-                <option value="@item.id" @(item.id == Convert.ToInt32(id_Question) ? "selected" : "")>@item.Title</option>
-            }
-            else
-            {
-                <option value="@item.id">@item.Title</option>
-            }
-        }
-    </select>*@
+                                <option value="0">------------ Chọn câu hỏi cha ------------</option>
+                                @foreach (var item in lstQuestion)
+                                {
+                                    if (!string.IsNullOrEmpty(id_Question))
+                                    {
+                                        <option value="@item.id" @(item.id == Convert.ToInt32(id_Question) ? "selected" : "")>@item.Title</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.id">@item.Title</option>
+                                    }
+                                }
+                            </select>*@
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -65,7 +65,8 @@
                     <table class="table table-striped table-bordered" style="padding-left:20px; margin-bottom:0px;">
                         <thead>
                             <tr>
-                                <th style="width:10px; ">STT
+                                <th style="width:10px; ">
+                                    STT
                                 </th>
                                 <th style="text-align:center;width:380px">Nội dung câu hỏi con</th>
                                 <th style="text-align:center;">Thứ tự</th>
@@ -80,8 +81,8 @@
                                 <tr>
                                     <td style="vertical-align: middle; font-weight: bold" align="left" colspan="7">@itemQ.Title.ToUpper()</td>
                                 </tr>
-                                
-                                foreach (var item in lstSub.Where(g=>g.id_Question==itemQ.id))
+
+                                foreach (var item in lstSub.Where(g => g.id_Question == itemQ.id))
                                 {
                                     stt++;
                                     <tr id="row_@item.id">
@@ -93,6 +94,9 @@
                                         <td style="vertical-align:middle;text-align:center">@Html.Raw(item.Status == true ? "<span style='color:green'><i class='fa fa-check' aria-hidden='true'></i></span>" : "<span style='color:red'><i class='fa fa-times' aria-hidden='true'></i></span>")</td>
                                         <td>
                                             <div class="pull-right">
+                                                <a href="#" class="btn btn-success" title="Xem chi tiết" onclick="loadfrmDetail(@item.id)">
+                                                    <i class="fa fa-info"></i>
+                                                </a>
                                                 <a href="Answer?id_SubQuestion=@item.id" class="btn btn-warning" title="Thêm answer">
                                                     <i class="fa fa-plus-square-o"></i>
                                                 </a>
@@ -109,7 +113,7 @@
 
                             }
 
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -117,11 +121,59 @@
         </div>
     </div>
 </div>
-
+<div id="divContainPopupDangNhap">
+    g;flkdssssssss
+</div>
+<html>
+<head>
+    <!--popup-->
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script src="/Scripts/jquery-ui.min.js"></script>
+    <link href="/Content/popup-theme/jquery-ui.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="id">asdf</div>
+    <button type="button" onclick="show()"></button>
+    @*//không reload trang type=submit*@
+    <script>
+        function show() {
+            $("#id").dialog({
+                height: 400,
+                width: 500,
+                //modal: true,
+                buttons: {
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
 @section script{
     <script>
         $(document).ready(function () {
             $("#id_Question").select2();
+
         });
+        //function loadfrmDetail(id)
+        //{
+        //    modal.Render("/SubQuestion/Detail/" + id, "Thông tin chi tiết", "modal-lg");
+        //}
+        //function show() {
+        //    $("#id").dialog({
+        //        height: 400,
+        //        width: 500,
+        //        //modal: true,
+        //        buttons: {
+        //            "Cancel": function () {
+        //                $(this).dialog("close");
+        //            }
+        //        }
+        //    });
+        //}
+
+
     </script>
 }

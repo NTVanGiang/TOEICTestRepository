@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custome\tb_Quiz.cs" />
     <Compile Include="Custome\tb_SubQuestion.cs" />
     <Compile Include="Custome\tb_Question.cs" />
     <Compile Include="Custome\tb_Part.cs" />

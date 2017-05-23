@@ -96,7 +96,8 @@
                         required:true
                     },
                     password: {
-                        required:true
+                        required: true,
+                        minlength:6
                     },
                     email: {
                         email:true
@@ -113,7 +114,8 @@
                         required:"Chưa nhập username"
                     },
                     password: {
-                        required:"Chưa nhập password"
+                        required: "Chưa nhập password",
+                        minlength:"Tối thiểu 6 kí tự"
                     },
                     email: {
                         email:"Chưa nhập đúng định dạng email"

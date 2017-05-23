@@ -16,7 +16,27 @@ namespace ToiecTest.Areas.Admin.Controllers
     {
         readonly ISubQuestionRepository _SubQuestionsitory = new SubQuestionRepository();
         readonly IQuestionRepository _QuestionRepository = new QuestionRepository();
-        
+        readonly IAnswerRepository _AnswerRepository = new AnswerRepository();
+
+        public ActionResult MainView()
+        {
+            return View();
+        }
+        public PartialViewResult AddUserPartialView()
+        {
+            return PartialView("AddUserPartialView", new tb_Account());
+        }
+
+        [HttpPost]
+        public JsonResult AddUserInfo(tb_Account model)
+        {
+            bool isSuccess = true;
+            if (ModelState.IsValid)
+            {
+                //isSuccess = Save data here return boolean
+            }
+            return Json(isSuccess);
+        }
         // GET: Admin/Question
         public ActionResult Index(tb_SubQuestion obj,int page = 1, int pageSize = 10)
         {
@@ -41,6 +61,15 @@ namespace ToiecTest.Areas.Admin.Controllers
             TempData["Question"] = lstQuestion;
             TempData["SubQuestion"] = lstSub;
             var lst = lstSub.ToList();
+            return View();
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var lstAnswer = _AnswerRepository.GetAll().OrderBy(g=>g.Ordering).ToList();
+            var objSubQuestion = _SubQuestionsitory.Find(id);
+            lstAnswer = lstAnswer.Where(g => g.id_SubQuestion == id).ToList();
+            TempData["lstAnswer"] = lstAnswer;
             return View();
         }
         

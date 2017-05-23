@@ -47,6 +47,8 @@
     <Compile Include="IAnswerRepository.cs" />
     <Compile Include="IPartRepository.cs" />
     <Compile Include="ILevelRepository.cs" />
+    <Compile Include="IQuizDetailRepository.cs" />
+    <Compile Include="IQuizRepository.cs" />
     <Compile Include="ITopicRepository.cs" />
     <Compile Include="ISkillRepository.cs" />
     <Compile Include="IQuestionRepository.cs" />

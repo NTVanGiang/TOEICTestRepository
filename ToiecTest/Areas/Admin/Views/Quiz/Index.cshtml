@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Danh sách đề thi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstAccount = (List<tb_Account>)TempData["lstAccount"];
+    var Name = Request["Name"];
+    var id_Account = Request["id_Account"];
+}
+@using Model;
+@model PagedList.IPagedList<tb_Quiz>
+@using PagedList.Mvc;
+
+@using (Html.BeginForm("Index", "Quiz"))
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">Tìm kiếm đề thi</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Nội dung đề thi" value="@Name">
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <select class="form-control select2" id="id_Account" name="id_Account">
+                            <option value="">-------- Chọn người tạo---------</option>
+                            @foreach (var item in lstAccount)
+                            {
+                                if (!string.IsNullOrEmpty(id_Account))
+                                {
+                                    <option value="@item.id" @(item.id == Convert.ToInt32(id_Account) ? "selected" : "")>@item.fullName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.id">@item.fullName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-purple waves-effect waves-light">Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="padding:15px">
+                <h3 class="panel-title" style="font-weight:bold">DANH SÁCH ĐỀ THI</h3>
+                <div style="top:7px; position:absolute;right:40px">
+                    <a href="Quiz/Create" class="btn btn-success"><i class="fa fa-plus"></i> Thêm mới</a>
+                </div>
+            </div>
+            <div class="panel-body" style="padding:0px; width:100%;float:left">
+                <div class="table-responsive" style="margin-bottom:0px">
+                    <table class="table table-striped table-bordered" style="padding-left:20px; margin-bottom:0px;">
+                        <thead>
+                            <tr>
+                                <th style="width:10px;">
+                                    <div class="checkbox" style="margin-bottom:8px !important">
+                                        <input type="hidden" id="hdfID" />
+                                        <input type="checkbox" id="chkall" />
+                                        <label for="chkall"></label>
+                                    </div>
+                                </th>
+                                <th style="text-align:center;width:380px">Tên đề thi</th>
+                                <th style="text-align:center;">Tổng câu hỏi</th>
+                                <th style="text-align:center;">Tổng thời gian</th>
+                                <th style="text-align:center;">Người tạo</th>
+                                <th style="width:142px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.id">
+                                    <td style="vertical-align:middle">
+                                        <div class="checkbox" style="margin-bottom: 8px !important">
+                                            <input type="checkbox" value="@item.id" id="chk'@item.id'" />
+                                            <label for="chk'@item.id'"></label>
+                                        </div>
+                                    </td>
+                                    <td style="vertical-align:middle;text-align:center">@item.Name</td>
+                                    <td style="vertical-align:middle;text-align:center">@item.totalQuestion</td>
+                                    <td style="vertical-align:middle;text-align:center">@item.totalTime</td>
+                                    <td style="vertical-align:middle;text-align:center">@item.AccountName</td>
+                                    <td>
+                                        <div class="pull-right">
+                                            <a href="Quiz/Edit/@item.id" class="btn btn-primary" title="Chỉnh sửa">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <a href="Quiz/Delete/@item.id" class="btn btn-danger" title="Xóa">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { Name,id_Account, page }))
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        $(document).ready(function () {
+            $("#id_Account").select2();
+        });
+    </script>
+}

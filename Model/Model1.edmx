@@ -16,9 +16,9 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="TenQuyen" Type="nvarchar(max)" />
-          <Property Name="LoaiQuyen" Type="nvarchar(max)" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenQuyen" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LoaiQuyen" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -35,8 +35,8 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fullName" Type="nvarchar" MaxLength="50" />
-          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
           <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="mobile" Type="varchar" MaxLength="11" />
@@ -44,7 +44,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Property Name="birthDay" Type="datetime" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="idQuyen" Type="int" />
+          <Property Name="idQuyen" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_Answer">
           <Key>
@@ -110,16 +110,17 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="quizName" Type="varchar" MaxLength="50" />
-          <Property Name="id_Skill" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="totalQuestion" Type="int" />
           <Property Name="totalTime" Type="int" />
-          <Property Name="id_Member" Type="int" />
-          <Property Name="createdTime" Type="datetime" />
-          <Property Name="finishTime" Type="datetime" />
+          <Property Name="id_Account" Type="int" />
+          <Property Name="BeginTime" Type="datetime" />
+          <Property Name="FinishTime" Type="datetime" />
           <Property Name="scoreRead" Type="int" />
           <Property Name="scoreListening" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="isAdminCreate" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_QuizDetail">
           <Key>
@@ -130,7 +131,6 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Property Name="id_SubQuestion" Type="int" />
           <Property Name="_order" Type="int" />
           <Property Name="id_AnswerMember" Type="int" />
-          <Property Name="isCorrect" Type="bit" />
         </EntityType>
         <EntityType Name="tb_Skill">
           <Key>
@@ -175,7 +175,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Property Name="viTri" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_tb_Account_PhanQuyen">
-          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="0..1" />
+          <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="1" />
           <End Role="tb_Account" Type="Self.tb_Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PhanQuyen">
@@ -266,7 +266,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="tb_Quiz">
-              <PropertyRef Name="id_Member" />
+              <PropertyRef Name="id_Account" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,9 +438,9 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="TenQuyen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LoaiQuyen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenQuyen" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LoaiQuyen" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tb_Account" Relationship="ToiecTestModel.FK_tb_Account_PhanQuyen" FromRole="PhanQuyen" ToRole="tb_Account" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -458,8 +458,8 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
@@ -467,7 +467,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Property Name="birthDay" Type="DateTime" Precision="3" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="idQuyen" Type="Int32" />
+          <Property Name="idQuyen" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PhanQuyen" Relationship="ToiecTestModel.FK_tb_Account_PhanQuyen" FromRole="tb_Account" ToRole="PhanQuyen" />
           <NavigationProperty Name="tb_Quiz" Relationship="ToiecTestModel.FK_tb_Quiz_tb_Member" FromRole="tb_Account" ToRole="tb_Quiz" />
         </EntityType>
@@ -544,16 +544,17 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="quizName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="id_Skill" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="totalQuestion" Type="Int32" />
           <Property Name="totalTime" Type="Int32" />
-          <Property Name="id_Member" Type="Int32" />
-          <Property Name="createdTime" Type="DateTime" Precision="3" />
-          <Property Name="finishTime" Type="DateTime" Precision="3" />
+          <Property Name="id_Account" Type="Int32" />
+          <Property Name="BeginTime" Type="DateTime" Precision="3" />
+          <Property Name="FinishTime" Type="DateTime" Precision="3" />
           <Property Name="scoreRead" Type="Int32" />
           <Property Name="scoreListening" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="isAdminCreate" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tb_Account" Relationship="ToiecTestModel.FK_tb_Quiz_tb_Member" FromRole="tb_Quiz" ToRole="tb_Account" />
           <NavigationProperty Name="tb_QuizDetail" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_Quiz" FromRole="tb_Quiz" ToRole="tb_QuizDetail" />
         </EntityType>
@@ -566,7 +567,6 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <Property Name="id_SubQuestion" Type="Int32" />
           <Property Name="C_order" Type="Int32" />
           <Property Name="id_AnswerMember" Type="Int32" />
-          <Property Name="isCorrect" Type="Boolean" />
           <NavigationProperty Name="tb_Quiz" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_Quiz" FromRole="tb_QuizDetail" ToRole="tb_Quiz" />
           <NavigationProperty Name="tb_SubQuestion" Relationship="ToiecTestModel.FK_tb_QuizDetail_tb_SubQuestion" FromRole="tb_QuizDetail" ToRole="tb_SubQuestion" />
         </EntityType>
@@ -619,7 +619,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <NavigationProperty Name="tb_QuangCao" Relationship="ToiecTestModel.FK_tb_QuangCao_tb_ViTriQC" FromRole="tb_ViTriQC" ToRole="tb_QuangCao" />
         </EntityType>
         <Association Name="FK_tb_Account_PhanQuyen">
-          <End Type="ToiecTestModel.PhanQuyen" Role="PhanQuyen" Multiplicity="0..1" />
+          <End Type="ToiecTestModel.PhanQuyen" Role="PhanQuyen" Multiplicity="1" />
           <End Type="ToiecTestModel.tb_Account" Role="tb_Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PhanQuyen">
@@ -638,7 +638,7 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="tb_Quiz">
-              <PropertyRef Name="id_Member" />
+              <PropertyRef Name="id_Account" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -862,15 +862,16 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <EntitySetMapping Name="tb_Quiz">
             <EntityTypeMapping TypeName="ToiecTestModel.tb_Quiz">
               <MappingFragment StoreEntitySet="tb_Quiz">
+                <ScalarProperty Name="isAdminCreate" ColumnName="isAdminCreate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="scoreListening" ColumnName="scoreListening" />
                 <ScalarProperty Name="scoreRead" ColumnName="scoreRead" />
-                <ScalarProperty Name="finishTime" ColumnName="finishTime" />
-                <ScalarProperty Name="createdTime" ColumnName="createdTime" />
-                <ScalarProperty Name="id_Member" ColumnName="id_Member" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="id_Account" ColumnName="id_Account" />
                 <ScalarProperty Name="totalTime" ColumnName="totalTime" />
                 <ScalarProperty Name="totalQuestion" ColumnName="totalQuestion" />
-                <ScalarProperty Name="id_Skill" ColumnName="id_Skill" />
-                <ScalarProperty Name="quizName" ColumnName="quizName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -878,7 +879,6 @@ warning 6013: The table/view 'ToiecTest.dbo.Category' does not have a primary ke
           <EntitySetMapping Name="tb_QuizDetail">
             <EntityTypeMapping TypeName="ToiecTestModel.tb_QuizDetail">
               <MappingFragment StoreEntitySet="tb_QuizDetail">
-                <ScalarProperty Name="isCorrect" ColumnName="isCorrect" />
                 <ScalarProperty Name="id_AnswerMember" ColumnName="id_AnswerMember" />
                 <ScalarProperty Name="C_order" ColumnName="_order" />
                 <ScalarProperty Name="id_SubQuestion" ColumnName="id_SubQuestion" />

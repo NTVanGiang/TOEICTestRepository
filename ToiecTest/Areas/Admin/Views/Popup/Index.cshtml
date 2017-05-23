@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+    <!--popup-->
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link href="/Content/popup-theme/jquery-ui.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="id">asdf</div>
+    <button type="button" onclick="show()"></button>
+    @*//không reload trang type=submit*@
+    <script type="text/javascript">
+        function showPopup() {
+            $("#id").dialog({
+                height: 400,
+                width: 500,
+                //modal: true,
+                buttons: {
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

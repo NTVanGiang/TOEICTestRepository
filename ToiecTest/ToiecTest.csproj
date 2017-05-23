@@ -1606,7 +1606,17 @@
     <Content Include="Content\Admin\vendor\raphael\raphael.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\files\Viet-Nam-Di-Hon-Va-Yeu-Pham-Hong-Phuoc.mp3" />
+    <Content Include="Content\image\images\10828070_935691156461966_6315734114045833922_o.jpg" />
+    <Content Include="Content\image\_thumbs\Images\10828070_935691156461966_6315734114045833922_o.jpg" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\popup-theme\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\popup-theme\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\popup-theme\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\popup-theme\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\popup-theme\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\popup-theme\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\popup-theme\jquery-ui.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1754,9 +1764,19 @@
     <Content Include="Areas\Admin\Views\Answer\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Answer\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Answer\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Quiz\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Quiz\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Quiz\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\ChangePass.cshtml" />
+    <Content Include="Areas\Admin\Views\SubQuestion\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\SubQuestion\MainView.cshtml" />
+    <Content Include="Areas\Admin\Views\SubQuestion\AddUserPartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Popup\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\maskedinput.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -1767,12 +1787,19 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AnswerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PopupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuizController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubQuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuestionController.cs" />
     <Compile Include="Areas\Admin\Controllers\LevelController.cs" />
     <Compile Include="Areas\Admin\Controllers\PartController.cs" />
     <Compile Include="Areas\Admin\Controllers\TopicController.cs" />
     <Compile Include="Areas\Admin\Controllers\SkillController.cs" />
+    <Compile Include="BaseSecurity\BaseController.cs" />
+    <Compile Include="BaseSecurity\BaseViewPage.cs" />
+    <Compile Include="BaseSecurity\CustomPrincipal.cs" />
+    <Compile Include="BaseSecurity\CustomPrincipalSerializeModel.cs" />
+    <Compile Include="BaseSecurity\ICustomPrincipal.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="cores\CheckLogin.cs" />
     <Compile Include="Global.asax.cs">
@@ -1804,7 +1831,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\Admin\assets\validate\" />
+    <Folder Include="Content\image\flash\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

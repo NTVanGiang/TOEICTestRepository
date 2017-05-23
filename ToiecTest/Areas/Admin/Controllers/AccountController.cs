@@ -10,6 +10,9 @@ using Core;
 using System.Web.Security;
 using PagedList;
 using ToiecTest.cores;
+using ToiecTest.BaseSecurity;
+using System.Web.Script.Serialization;
+using System.Security.Claims;
 
 namespace ToiecTest.Areas.Admin.Controllers
 {
@@ -158,6 +161,8 @@ namespace ToiecTest.Areas.Admin.Controllers
             var account = _accountRepository.GetAll().FirstOrDefault(u => u.password == Encryptor.MD5Hash(obj.password) && u.username.ToLower() == obj.username.ToLower());
             if (account != null)
             {
+
+                Session["Account"] = obj;
                 //phương thức có sẵn của DOT.Net
                 Session["check"] = true;
                 FormsAuthentication.SetAuthCookie(obj.username, obj.RememberMe);
@@ -168,6 +173,7 @@ namespace ToiecTest.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
                 return View();
             }
+
 
             //sử dụng StoredProcedure
             //var result = _accountReponsitory.Login(obj.UserName, obj.PassWord);
@@ -182,8 +188,47 @@ namespace ToiecTest.Areas.Admin.Controllers
             //}
             //return View();
         }
+
+        public ActionResult ChangePass(int id)
+        {
+            var objAccount = _accountRepository.Find(id);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePass(int id, string oldpassword, string password,string confirmpassword)
+        {
+            var objAccount = _accountRepository.Find(id);
+            if(objAccount.password!=Encryptor.MD5Hash(oldpassword))
+            {
+                ModelState.AddModelError("", "Mật khẩu cũ nhập vào không đúng");
+                return View();
+            }
+            if(password==confirmpassword)
+            {
+                try
+                {
+                    objAccount.password = Encryptor.MD5Hash(password);
+                    _accountRepository.Edit(objAccount);
+                    return RedirectToAction("Index","Account");
+                }
+                catch(Exception)
+                {
+                    ModelState.AddModelError("", "Reset mật khẩu thất bại");
+                    return View();
+                }
+            }
+            ModelState.AddModelError("", "Reset mật khẩu thất bại");
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
         public ActionResult Logout()
         {
+            Session.Remove("Account");
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }

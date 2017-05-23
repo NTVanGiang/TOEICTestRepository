@@ -30,7 +30,7 @@ namespace Model
         public Nullable<System.DateTime> birthDay { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public bool Status { get; set; }
-        public Nullable<int> idQuyen { get; set; }
+        public int idQuyen { get; set; }
     
         public virtual PhanQuyen PhanQuyen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

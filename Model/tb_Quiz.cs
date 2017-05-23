@@ -21,15 +21,16 @@ namespace Model
         }
     
         public int id { get; set; }
-        public string quizName { get; set; }
-        public Nullable<int> id_Skill { get; set; }
+        public string Name { get; set; }
         public Nullable<int> totalQuestion { get; set; }
         public Nullable<int> totalTime { get; set; }
-        public Nullable<int> id_Member { get; set; }
-        public Nullable<System.DateTime> createdTime { get; set; }
-        public Nullable<System.DateTime> finishTime { get; set; }
+        public Nullable<int> id_Account { get; set; }
+        public Nullable<System.DateTime> BeginTime { get; set; }
+        public Nullable<System.DateTime> FinishTime { get; set; }
         public Nullable<int> scoreRead { get; set; }
         public Nullable<int> scoreListening { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public bool isAdminCreate { get; set; }
     
         public virtual tb_Account tb_Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

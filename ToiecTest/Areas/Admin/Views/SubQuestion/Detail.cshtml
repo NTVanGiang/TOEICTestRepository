@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết câu hỏi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstAnswer = (List<tb_Answer>)TempData["lstAnswer"];
+    var stt = 0;
+}
+@using Model
+@model tb_SubQuestion
+
+<div class="panel panel-primary" id="divContainPopupDangNhap">
+    <div class="panel-heading">Chi tiết câu hỏi</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label col-md-3">Tiêu đề câu hỏi con</label>
+                    <div class="col-md-9">
+                        @Html.Raw(Model.Desciption)
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in lstAnswer)
+            {
+                stt++;
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">@stt</label>
+                        <div class="col-md-9">
+                            @Html.Raw(item.answerContent)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+</div>
+@section script{
+<script type="text/javascript">
+            function showPopup() {
+                $("#divContainPopupDangNhap").dialog({
+                    height: 400,
+                    width: 500,
+                    //modal: true,
+                    buttons: {
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+</script>
+    }

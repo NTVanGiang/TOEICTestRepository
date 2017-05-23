@@ -6,21 +6,21 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5368f06412ca48389761897a98490d91" Name="Diagram1">
         <EntityTypeShape EntityType="ToiecTestModel.PhanQuyen" Width="1.5" PointX="3" PointY="11.25" />
-        <EntityTypeShape EntityType="ToiecTestModel.sysdiagram" Width="1.5" PointX="11.75" PointY="2" />
+        <EntityTypeShape EntityType="ToiecTestModel.sysdiagram" Width="1.5" PointX="11.75" PointY="2.125" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Account" Width="1.5" PointX="5.25" PointY="10.375" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_Answer" Width="1.5" PointX="9.75" PointY="7.375" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_Image" Width="1.5" PointX="11.75" PointY="5" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_Answer" Width="1.5" PointX="9.75" PointY="7.125" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_Image" Width="1.5" PointX="11.75" PointY="5.125" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Level" Width="1.5" PointX="3" PointY="0.75" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Part" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_QuangCao" Width="1.5" PointX="12" PointY="11.25" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_QuangCao" Width="1.5" PointX="12" PointY="10.25" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Question" Width="1.5" PointX="5.25" PointY="3.5" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_Quiz" Width="1.5" PointX="7.5" PointY="10.5" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_Quiz" Width="1.5" PointX="7.5" PointY="10.375" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_QuizDetail" Width="1.5" PointX="9.75" PointY="3.875" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Skill" Width="1.5" PointX="0.75" PointY="4.125" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_Sound" Width="1.5" PointX="5.75" PointY="8" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_Sound" Width="1.5" PointX="5.75" PointY="8.125" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_SubQuestion" Width="1.5" PointX="7.5" PointY="3.875" />
         <EntityTypeShape EntityType="ToiecTestModel.tb_Topic" Width="1.5" PointX="3" PointY="7.5" />
-        <EntityTypeShape EntityType="ToiecTestModel.tb_ViTriQC" Width="1.5" PointX="9.75" PointY="11.375" />
+        <EntityTypeShape EntityType="ToiecTestModel.tb_ViTriQC" Width="1.5" PointX="9.75" PointY="10.5" />
         <AssociationConnector Association="ToiecTestModel.FK_tb_Account_PhanQuyen" />
         <AssociationConnector Association="ToiecTestModel.FK_tb_Quiz_tb_Member" />
         <AssociationConnector Association="ToiecTestModel.FK_tb_Answer_tb_SubQuestion" />

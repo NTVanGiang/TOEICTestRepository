@@ -18,7 +18,7 @@ namespace ToiecTest.Areas.Admin.Controllers
         // GET: Admin/Level
         public ActionResult Index(int page=1,int pageSize=10)
         {
-            var lstLevel = _levelRepository.GetAll().OrderBy(g=>g.Ordering).ToPagedList(page,pageSize);
+            var lstLevel = _levelRepository.GetAll().OrderByDescending(g=>g.Ordering).ToPagedList(page,pageSize);
             //TempData["Level"] = lstLevel;
             return View(lstLevel);
         }

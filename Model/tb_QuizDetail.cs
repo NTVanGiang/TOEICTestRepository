@@ -19,7 +19,6 @@ namespace Model
         public Nullable<int> id_SubQuestion { get; set; }
         public Nullable<int> C_order { get; set; }
         public Nullable<int> id_AnswerMember { get; set; }
-        public Nullable<bool> isCorrect { get; set; }
     
         public virtual tb_Quiz tb_Quiz { get; set; }
         public virtual tb_SubQuestion tb_SubQuestion { get; set; }
